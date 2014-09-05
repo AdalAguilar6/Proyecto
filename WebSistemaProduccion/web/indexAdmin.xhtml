@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"      
+      xmlns:p="http://primefaces.org/ui">
+        
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="SISTEMA DE PRODUCCION - Administrador"></h:outputText>
+        </ui:define>
+        <ui:define name="body">        
+        
+        
+        <h:form id="frmenu" styleClass="jsfcrud_list_form">
+             <p:menubar>
+                 
+         <p:submenu label="Procesos" icon="ui-icon-document">    
+                       
+        </p:submenu>
+                 
+        <p:submenu label="Mantenimientos" icon="ui-icon-pencil">
+            <p:submenu label="Catalogos" icon="ui-icon-contact">
+                  <p:menuitem value="Maquinas" url="http://localhost:8080/WebSistemaProduccion/faces/maquina/maquina.xhtml" />
+                  <p:menuitem value="Unidad de Medida" url="http://localhost:8080/WebSistemaProduccion/faces/unidadmedida/unidadmedida.xhtml" />    
+                  <p:menuitem value="Materia Prima" url="http://localhost:8080/WebSistemaProduccion/faces/materiaprima/materiaprima.xhtml" />                  
+                  <p:menuitem value="Producto" url="http://localhost:8080/WebSistemaProduccion/faces/producto/producto.xhtml" />      
+                  <p:menuitem value="Bodega" url="http://localhost:8080/WebSistemaProduccion/faces/bodega/bodega.xhtml" />  
+                  <p:menuitem value="Cliente/Proveedor" url="http://localhost:8080/WebSistemaProduccion/faces/persona/persona.xhtml" />  
+                  <p:menuitem value="Empleado" url="http://localhost:8080/WebSistemaProduccion/faces/empleado/empleado.xhtml" />  
+                  <p:menuitem value="Puesto" url="http://localhost:8080/WebSistemaProduccion/faces/puesto/puesto.xhtml" />  
+                  <p:menuitem value="Tipos" url="http://localhost:8080/WebSistemaProduccion/faces/tipo/tipo.xhtml" />                    
+             </p:submenu> 
+             <p:menuitem value="Usuarios" url="http://localhost:8080/WebSistemaProduccion/faces/usuario/usuario.xhtml" />                  
+        </p:submenu>
+                 
+         <p:submenu label="Reportes" icon="ui-icon-newwin">
+               <p:menuitem value="Empleado" url="http://localhost:8080/WebSistemaProduccion/ReporteEmpleado" />                         
+        </p:submenu>
+
+         <p:menuitem value="Salir" url="http://localhost:8080/WebSistemaProduccion/faces/index.xhtml" icon="ui-icon-close" />
+                  
+       </p:menubar>
+   
+       </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
+

@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"          
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="LISTADO DE NOTAS DE ENVIO"></h:outputText>
+        </ui:define>
+        <ui:define name="body">        
+        
+        
+            <h:form id="frm" styleClass="jsfcrud_list_form">
+                <p:dataTable id="tblComp" var="item" value="#{notaenvioControlador.lista}" paginator ="true" rows="10">
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="ID"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idNotaEnvio}" style="width: 100px"/>
+                </p:column>
+
+                    <p:column filterBy="#{item.fechaDespacho}">
+                    <f:facet name="header">
+                        <h:outputText value="FECHA DESPACHO"/>
+                    </f:facet>
+                        <h:outputText value="#{item.fechaDespacho.toLocaleString()}" />
+                </p:column>                
+                
+                    <p:column filterBy="#{item.idPedido}">
+                    <f:facet name="header">
+                        <h:outputText value="No.PEDIDO"/>
+                    </f:facet>
+                        <h:outputText value="#{item.idPedido}" />
+                </p:column>
+
+                <p:column style="width:32px;text-align: center">
+                     <p:commandButton update=":frm:Detail1" oncomplete="PF('neDialog').show()" icon="ui-icon-search" title="Detalle"
+                                      action="#{notaenvioControlador.filtrarDetalleNotaEnvio(item.idNotaEnvio)}" >
+                     </p:commandButton>
+                </p:column>                      
+            </p:dataTable>     
+
+            <h:panelGroup>                      
+                <p:commandButton id="vindex" value="Volver" 
+                                 action="/indexBodega.xhtml"/>           
+            </h:panelGroup>
+            
+                <p:dialog header="Detalle" widgetVar="neDialog" showEffect="fade" hideEffect="fade" resizable="false">
+                    <p:outputPanel id="Detail1" style="text-align:center;">
+                        <p:dataTable id="tblNESelec" var="item1" value="#{notaenvioControlador.listaDetallexNota}" paginator ="true" rows="5">                   
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="No.NotaEnvio"/>
+                                </f:facet>
+                                <h:outputText value="#{item1.idNotaEnvio}" />
+                            </p:column>
+                            
+                            <p:column>
+                               <f:facet name="header">
+                                   <h:outputText value="Bobina:" />
+                               </f:facet>
+                                <h:outputText value="#{item1.idBobinaFardo}" />
+                           </p:column>                   
+                            
+                            <p:column>
+                               <f:facet name="header">
+                                   <h:outputText value="Peso:" />
+                               </f:facet>
+                                <h:outputText value="#{item1.idBobinaFardo.peso}" />
+                           </p:column>                                         
+                            
+                            <p:column>
+                               <f:facet name="header">
+                                   <h:outputText value="Cantidad:" />
+                               </f:facet>
+                                <h:outputText value="#{item1.idBobinaFardo.cantidad}" />
+                           </p:column>                                                                     
+                        </p:dataTable>  
+                    </p:outputPanel>
+                </p:dialog>                                       
+            </h:form>
+        </ui:define>
+    </ui:composition>   
+</html>
+

@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"          
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="MATERIAS PRIMAS"></h:outputText>
+        </ui:define>
+        <ui:define name="body">        
+        
+        
+        <h:form id="frmMP" styleClass="jsfcrud_list_form">
+            <h:panelGrid id="panelMP" columns="2">
+                <h:outputLabel value="Nombre"/>
+                <h:inputText value="#{materiaprimaControlador.materiaprima.nombre}" style="width: 300px"/>
+                
+                <h:outputLabel value="Existencias"/>
+                <h:inputText value="#{materiaprimaControlador.materiaprima.existencia}" readonly="true"/> 
+                
+                <h:outputText value="UnidadMedida"/>
+                <p:selectOneMenu id="idUnidadMedida" value="#{materiaprimaControlador.materiaprima.idUnidadMedida}" >
+                    <f:selectItems value="#{unidadmedidaControlador.listaTodos}"/>
+                </p:selectOneMenu>
+                
+                <h:outputText value="Bodega"/>
+                <p:selectOneMenu id="idBodega" value="#{materiaprimaControlador.materiaprima.idBodega}">
+                    <f:selectItems value="#{bodegaControlador.listaTodos}"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+            
+            <h:panelGroup>
+                <p:commandButton value="Agregar" 
+                                 action="#{materiaprimaControlador.insertar}"/>
+                <p:commandButton value="Modificar" update="tblTodo"
+                                 action="#{materiaprimaControlador.modificaMateriaPrima}"/>
+                <p:commandButton value="Eliminar" 
+                                 action="#{materiaprimaControlador.eliminaMateriaPrima}"/>
+                <p:commandButton value="Volver" 
+                                 action="/indexAdmin.xhtml"/>             
+            </h:panelGroup>
+
+            <p:dataTable id="tblTodo" var="item" value="#{materiaprimaControlador.listaTodos}" paginator ="true" rows="5">
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="ID"/>
+                    </f:facet>
+                    <h:outputLabel value="#{item.idMateriaPrima}" />
+                </p:column>
+
+                <p:column filterBy="#{item.nombre}">
+                    <f:facet name="header">
+                        <h:outputLabel value="NOMBRE"/>
+                    </f:facet>
+                    <h:outputLabel value="#{item.nombre}" />
+                </p:column>
+
+                <p:column filterBy="#{item.existencia}">
+                    <f:facet name="header">
+                        <h:outputLabel value="EXISTENCIAS"/>
+                    </f:facet>
+                    <h:outputLabel value="#{item.existencia}" />
+                </p:column>
+                
+                <p:column filterBy="#{item.idUnidadMedida.abreviatura}">
+                    <f:facet name="header">
+                        <h:outputLabel value="UNIDAD DE MEDIDA"/>
+                    </f:facet>
+                    <h:outputLabel value="#{item.idUnidadMedida.abreviatura}" />
+                </p:column>                
+
+                <p:column filterBy="#{item.idBodega.nombre}">
+                    <f:facet name="header">
+                        <h:outputLabel value="BODEGA"/>
+                    </f:facet>
+                    <h:outputLabel value="#{item.idBodega.nombre}" />
+                </p:column>       
+
+                <p:column>
+                      <p:commandButton update=":frmMP:panelMP" icon="ui-icon-arrowrefresh-1-w" title="Cargar Encabezado" >                          
+                          <f:setPropertyActionListener value="#{item}" target="#{materiaprimaControlador.materiaprima}"/>
+                      </p:commandButton>                         
+                </p:column>                   
+            </p:dataTable>    
+            
+            <p:messages showDetail="true" autoUpdate="true"/>                     
+        </h:form>
+        </ui:define>
+    </ui:composition>                  
+</html>
+
+

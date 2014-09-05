@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditSecuenciaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditSecuenciaLabel_secuenciaPK_secuenciaNombre}" for="secuenciaPK_secuenciaNombre" />
+                    <h:inputText id="secuenciaPK_secuenciaNombre" value="#{secuenciaController.selected.secuenciaPK.secuenciaNombre}" title="#{bundle.EditSecuenciaTitle_secuenciaPK_secuenciaNombre}" required="true" requiredMessage="#{bundle.EditSecuenciaRequiredMessage_secuenciaPK_secuenciaNombre}"/>
+                    <h:outputLabel value="#{bundle.EditSecuenciaLabel_secuenciaPK_secuenciaValor}" for="secuenciaPK_secuenciaValor" />
+                    <h:inputText id="secuenciaPK_secuenciaValor" value="#{secuenciaController.selected.secuenciaPK.secuenciaValor}" title="#{bundle.EditSecuenciaTitle_secuenciaPK_secuenciaValor}" required="true" requiredMessage="#{bundle.EditSecuenciaRequiredMessage_secuenciaPK_secuenciaValor}"/>
+                </h:panelGrid>
+                <h:commandLink action="#{secuenciaController.update}" value="#{bundle.EditSecuenciaSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditSecuenciaViewLink}"/>
+                <br />
+                <h:commandLink action="#{secuenciaController.prepareList}" value="#{bundle.EditSecuenciaShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditSecuenciaIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

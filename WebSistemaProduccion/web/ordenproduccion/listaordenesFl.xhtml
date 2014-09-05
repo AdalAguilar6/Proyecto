@@ -1,0 +1,246 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"          
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="ORDENES DE FLEXOGRAFIA EN PROCESO"></h:outputText>
+        </ui:define>
+        
+        <ui:define name="body">            
+            <h:form id="frmloFl" styleClass="jsfcrud_list_form">
+                <p:dataTable id="lstFl" var="item" value="#{ordenproduccionControlador.listaOrdenesFl}" paginator ="true" rows="5">
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="No."/>
+                        </f:facet>
+                        <h:outputText value="#{item.correlativo}" style="width: 100px"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Proceso"/>
+                        </f:facet>
+                        <h:outputText value="#{item.proceso}" style="width: 100px"/>
+                    </p:column>
+
+                    <p:column filterBy="#{item.fecha}">
+                        <f:facet name="header">
+                            <h:outputText value="FECHA"/>
+                        </f:facet>
+                        <h:outputText value="#{item.fecha.toLocaleString()}" />
+                    </p:column>                
+
+                    <p:column filterBy="#{item.idTurno.nombre}">
+                        <f:facet name="header">
+                            <h:outputText value="Turno"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idTurno.nombre}" />
+                    </p:column>                
+
+                    <p:column filterBy="#{item.idMaquina.codigo}">
+                        <f:facet name="header">
+                            <h:outputText value="Maquina"/>
+                        </f:facet>
+                            <h:outputText value="#{item.idMaquina.codigo}" />
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="ANCHO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.ancho}" />
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="LARGO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.largo}" />
+                    </p:column>                
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="CALIBRE"/>
+                        </f:facet>
+                        <h:outputText value="#{item.calibre}" />
+                    </p:column>                                
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="No.Pedido"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idPedido}" />
+                    </p:column>  
+
+                    <p:column>
+                        <p:commandButton update=":frmloFl:DetalleBF"  value="Bobina" onclick="PF('dialogoBF').show();"
+                                         action="#{bobinafardoControlador.filtrarOrdenFl(item.idOrden)}" >            
+                        </p:commandButton>                                                      
+                    </p:column>     
+                    
+                    <p:column style="width:32px;text-align: center">
+                         <p:commandButton update=":frmloFl:DetOrd" oncomplete="PF('Dialog2').show()" icon="ui-icon-search" title="Detalle"
+                                          action="#{bobinafardoControlador.filtrarDetalleOrden(item.idOrden)}" >
+                        </p:commandButton>
+                    </p:column>                         
+                    
+                </p:dataTable>          
+
+                <h:panelGroup>
+                    <h:commandButton value="Volver" 
+                                     action="/index.xhtml"/>           
+                </h:panelGroup>
+
+                <p:dialog id="idDialogoBF" header="Agregar Bobina" widgetVar="dialogoBF"   
+                              showEffect="fade" hideEffect="fade">
+                    <p:outputPanel id="DetalleBF" style="text-align:left;">
+                    <h:panelGrid columns="2">
+
+                    <h:outputLabel value="Proceso" style="width: 100px"/>          
+                    <h:inputText value="#{bobinafardoControlador.procesoOrden}" style="width: 100px" readonly="true"/>            
+
+                    <h:outputLabel value="No.Orden" style="width: 100px"/>          
+                    <h:inputText value="#{bobinafardoControlador.correlativoOrden}" style="width: 100px" readonly="true"/>            
+
+                    <h:outputLabel value="Bobina Entrada" style="width: 100px"/>          
+                    <h:selectOneMenu id="IdBobinaIn" value="#{bobinafardoControlador.bobinafardo.idBobinaFardoEntrada}">
+                        <f:selectItems value="#{bobinafardoControlador.listaBobinasEntrada}"/>
+                    </h:selectOneMenu>                  
+
+                    <h:outputLabel value="Codigo"/>
+                    <h:inputText value="#{bobinafardoControlador.bobinafardo.idBobinaFardo}" readonly="true"/>                
+
+                    <h:outputLabel value="Peso"/>
+                    <h:inputText value="#{bobinafardoControlador.bobinafardo.peso}"/>                
+
+                    <h:outputLabel value="Fecha Inicio" style="width: 100px"/>
+                    <h:inputText value="#{bobinafardoControlador.bobinafardo.horaInicio}" style="width: 150px">
+                        <f:convertDateTime dateStyle="short" timeZone="America/El_Salvador" type="both" pattern="dd/MM/yyyy hh:mm a"/> 
+                    </h:inputText>           
+
+                    <h:outputLabel value="Fecha Final" style="width: 100px"/>
+                    <h:inputText value="#{bobinafardoControlador.bobinafardo.horaFinal}" style="width: 150px">
+                        <f:convertDateTime dateStyle="short" timeZone="America/El_Salvador" type="both" pattern="dd/MM/yyyy hh:mm a"/> 
+                    </h:inputText>   
+
+                    <h:outputLabel value="Observacion" style="width: 100px"/>
+                    <h:inputText value="#{bobinafardoControlador.bobinafardo.observacion}"/>
+
+                    <h:outputLabel value="Supervisor" style="width: 100px"/>          
+                    <h:selectOneMenu id="IdSuperFl" value="#{bobinafardoControlador.bobinafardo.idSupervisor}" >
+                        <f:selectItems value="#{empleadoControlador.listaSuperActivoFL}"/>
+                    </h:selectOneMenu>                   
+
+                    <h:outputLabel value="Operario" style="width: 100px"/>          
+                    <h:selectOneMenu id="IdOperFl" value="#{bobinafardoControlador.bobinafardo.idOperario}" >
+                        <f:selectItems value="#{empleadoControlador.listaOperActivoFL}"/>
+                    </h:selectOneMenu>                                   
+
+                    <h:panelGroup>
+                        <h:commandButton value="Agregar" 
+                            action="#{bobinafardoControlador.insertar}"/>
+                    </h:panelGroup>                
+                    </h:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>           
+                
+                
+            <p:dialog header="Detalle de Bobinas" widgetVar="Dialog2" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="DetOrd" style="text-align:center;">
+                    <p:dataTable id="tblBobinas" var="item1" value="#{bobinafardoControlador.listaDetallexOrden}" paginator ="true" rows="5">                   
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Codigo"/>
+                            </f:facet>
+                            <h:outputText value="#{item1.idBobinaFardo}" />
+                        </p:column>
+
+                        <p:column>
+                           <f:facet name="header">
+                               <h:outputText value="Peso" />
+                           </f:facet>
+                           <h:outputText value="#{item1.peso}" />
+                       </p:column>                   
+
+                        <p:column>
+                           <f:facet name="header">
+                               <h:outputText value="Hora Inicio:" />
+                           </f:facet>
+                            <h:outputText value="#{item1.horaInicio.toLocaleString()}" />
+                       </p:column>                       
+
+                        <p:column>
+                           <f:facet name="header">
+                               <h:outputText value="Hora Fin:" />
+                           </f:facet>
+                            <h:outputText value="#{item1.horaFinal.toLocaleString()}" />
+                       </p:column>       
+                        
+                       <p:column style="width:32px;text-align: center">
+                            <p:commandButton update=":frmloFl:BFSelect" oncomplete="PF('dialogoBS').show()" icon="ui-icon-search" title="Bobina Seleccionada"
+                                             action="#{bobinafardoControlador.buscarBobinaxCodigo(item1.idBobinaFardo)}" >
+                            </p:commandButton>
+                       </p:column>                          
+                    </p:dataTable>  
+                </p:outputPanel>
+            </p:dialog>     
+                
+
+                
+            <p:dialog id="idDialogoBS" header="Modificar Bobina" widgetVar="dialogoBS"   
+                          showEffect="fade" hideEffect="fade">
+                <p:outputPanel id="BFSelect" style="text-align:left;">
+                <h:panelGrid columns="2">
+
+                <h:outputLabel value="Codigo"/>
+                <h:inputText value="#{bobinafardoControlador.bobinafardoSelect.idBobinaFardo}" readonly="true"/>                
+
+                <h:outputLabel value="Peso"/>
+                <h:inputText value="#{bobinafardoControlador.bobinafardoSelect.peso}" required="true"/>                
+                
+                <h:outputLabel value="Fecha Inicio" style="width: 100px"/>
+                <h:inputText value="#{bobinafardoControlador.bobinafardoSelect.horaInicio}" style="width: 150px">
+                    <f:convertDateTime dateStyle="short" timeZone="America/El_Salvador" type="both" pattern="dd/MM/yyyy hh:mm a"/> 
+                </h:inputText>           
+                
+                <h:outputLabel value="Fecha Final" style="width: 100px"/>
+                <h:inputText value="#{bobinafardoControlador.bobinafardoSelect.horaFinal}" style="width: 150px">
+                    <f:convertDateTime dateStyle="short" timeZone="America/El_Salvador" type="both" pattern="dd/MM/yyyy hh:mm a"/> 
+                </h:inputText>   
+                
+                <h:outputLabel value="Observacion" style="width: 100px"/>
+                <h:inputText value="#{bobinafardoControlador.bobinafardoSelect.observacion}"/>
+
+                <h:outputLabel value="Supervisor" style="width: 100px"/>          
+                <h:selectOneMenu id="IdSuperFlS" value="#{bobinafardoControlador.bobinafardoSelect.idSupervisor}" >
+                    <f:selectItems value="#{empleadoControlador.listaSuperActivoFL}"/>
+                </h:selectOneMenu>                   
+
+                <h:outputLabel value="Operario" style="width: 100px"/>          
+                <h:selectOneMenu id="IdOperFlS" value="#{bobinafardoControlador.bobinafardoSelect.idOperario}" >
+                    <f:selectItems value="#{empleadoControlador.listaOperActivoFL}"/>
+                </h:selectOneMenu>                                   
+                                           
+                <h:panelGroup>
+                    <p:commandButton value="Modificar" 
+                                     action="#{bobinafardoControlador.modificaBobinaSelect()}" 
+                                     update ="tblBobinas"/>  
+                    <p:commandButton value="Eliminar" 
+                                     action="#{bobinafardoControlador.eliminaBobinaSelect()}" 
+                                     update ="tblBobinas"/>  
+                </h:panelGroup>                
+                </h:panelGrid>
+                </p:outputPanel>
+            </p:dialog>                                    
+                
+                <p:messages showDetail="true" autoUpdate="true"/>               
+            </h:form>
+        </ui:define>
+    </ui:composition>   
+</html>
+

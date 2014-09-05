@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"          
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="USUARIOS"></h:outputText>
+        </ui:define>
+        <ui:define name="body">        
+        
+        
+        <h:form id="frmU" styleClass="jsfcrud_list_form">
+            <h:panelGrid id="panelU" columns="2">
+                <h:outputLabel value="IdUsuario"/>
+                <h:inputText value="#{usuarioControlador.usuario.idUsuario}"/>
+                <h:outputLabel value="Nombre"/>
+                <h:inputText value="#{usuarioControlador.usuario.nombre}" style="width: 400px"/>
+                <h:outputLabel value="Contraseña"/>
+                <h:inputText id="idPass" value="#{usuarioControlador.usuario.password}"/>
+                <h:outputLabel value="Estado"/>
+                <h:selectOneMenu id="idEstado" value="#{usuarioControlador.usuario.idEstado}" >
+                    <f:selectItems value="#{usuarioControlador.listaEstado}"/>
+                </h:selectOneMenu>
+            </h:panelGrid>
+            
+            <h:panelGroup>
+                <h:commandButton value="Agregar" 
+                                 action="#{usuarioControlador.insertar}"/>
+                <h:commandButton value="Modificar" 
+                                 action="#{usuarioControlador.modificaUsuario}"/>
+                <h:commandButton value="Eliminar" 
+                                 action="#{usuarioControlador.eliminaUsuario}"/>
+                <h:commandButton value="Volver" 
+                                 action="/indexAdmin.xhtml"/>  
+            </h:panelGroup>
+            
+            <p:dataTable var="item" value="#{usuarioControlador.listaTodos}" paginator ="true" rows="10">
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="ID"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idUsuario}" />
+                </p:column>
+
+                <p:column filterBy="#{item.nombre}">
+                    <f:facet name="header">
+                        <h:outputText value="NOMBRES"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombre}" />
+                </p:column>
+
+                <p:column filterBy="#{item.idEstado.nombre}">
+                    <f:facet name="header">
+                        <h:outputText value="ESTADO"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idEstado.nombre}" />
+                </p:column>                                 
+                
+                <p:column>
+                      <p:commandButton update=":frmU:panelU" icon="ui-icon-arrowrefresh-1-w" title="Cargar Encabezado" >                          
+                          <f:setPropertyActionListener value="#{item}" target="#{usuarioControlador.usuario}"/>
+                      </p:commandButton>                         
+                </p:column>                   
+            </p:dataTable>    
+            
+            <p:messages showDetail="true" autoUpdate="true"/>                
+        </h:form>
+        </ui:define>
+    </ui:composition>    
+</html>
+

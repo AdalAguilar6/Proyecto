@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"          
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="ORDENES DE PRODUCCION"></h:outputText>
+        </ui:define>
+        <ui:define name="body">        
+        
+        <h:form styleClass="jsfcrud_list_form">
+            <h:panelGrid columns="2">
+                <h:outputLabel value="idOrdenProd"/>
+                <h:panelGroup>
+                    <h:inputText value="#{ordenproduccionControlador.ordenproduccion.idOrden}"/>
+                    <h:commandButton value="Buscar Bodega" action="#{ordenproduccionControlador.buscarOrdenProduccion}"/>
+                </h:panelGroup>
+                <h:outputLabel value="Proceso"/>
+                <h:inputText value="#{ordenproduccionControlador.ordenproduccion.proceso}"/>
+                <h:outputLabel value="Correlativo"/>          
+                <h:inputText value="#{ordenproduccionControlador.ordenproduccion.correlativo}"/>
+                <h:outputLabel value="Fecha"/>
+                <h:inputText value="#{ordenproduccionControlador.ordenproduccion.fecha}">
+                      <f:convertDateTime pattern="dd/MM/yyyy" />
+                </h:inputText>           
+                <h:outputLabel value="Observacion"/>
+                <h:inputText value="#{ordenproduccionControlador.ordenproduccion.observacion}"/>
+                <h:outputLabel value="Ancho"/>          
+                <h:inputText value="#{ordenproduccionControlador.ordenproduccion.ancho}"/>
+                <h:outputLabel value="Largo"/>
+                <h:inputText value="#{ordenproduccionControlador.ordenproduccion.largo}"/>   
+                <h:outputLabel value="Calibre"/>
+                <h:inputText value="#{ordenproduccionControlador.ordenproduccion.calibre}"/>               
+                <h:outputLabel value="Estado"/>          
+                <h:inputText value="#{ordenproduccionControlador.ordenproduccion.estadoOrden}"/>
+                <h:outputLabel value="Rodillo"/>
+                <h:inputText value="#{ordenproduccionControlador.ordenproduccion.rodillo}"/>   
+                <h:outputLabel value="Repeticiones"/>
+                <h:inputText value="#{ordenproduccionControlador.ordenproduccion.repeticiones}"/>  
+                <h:outputLabel value="Rollos"/>          
+                <h:inputText value="#{ordenproduccionControlador.ordenproduccion.rollos}"/>
+                <h:outputLabel value="Empaque"/>
+                <h:inputText value="#{ordenproduccionControlador.ordenproduccion.empaque}"/>   
+                <h:outputLabel value="Registros"/>
+                <h:inputText value="#{ordenproduccionControlador.ordenproduccion.registros}"/>  
+                <h:outputLabel value="IdTurno"/>          
+                <h:selectOneMenu id="IdTurno" value="#{ordenproduccionControlador.ordenproduccion.idTurno}" >
+                    <f:selectItems value="#{ordenproduccionControlador.listaTurnos}"/>
+                </h:selectOneMenu>     
+                <h:outputLabel value="IdPedido"/>
+                <h:inputText value="#{ordenproduccionControlador.ordenproduccion.idPedido}"/>   
+                <h:outputLabel value="IdMaquina"/>
+
+                <h:selectOneMenu id="idMaquina" value="#{ordenproduccionControlador.ordenproduccion.idMaquina}" >
+                    <f:selectItems value="#{maquinaControlador.listaMaquinasTipoEstado}"/>
+                </h:selectOneMenu>     
+            </h:panelGrid>
+            
+            <h:panelGroup>
+                <h:commandButton value="Agregar" 
+                                 action="#{ordenproduccionControlador.insertar}"/>
+                <h:commandButton value="Modificar" 
+                                 action="#{ordenproduccionControlador.modificaOrdenProduccion}"/>
+                <h:commandButton value="Eliminar" 
+                                 action="#{ordenproduccionControlador.eliminaOrdenProduccion}"/>
+                <h:commandButton value="Volver" 
+                                 action="/index.xhtml"/>
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+    </ui:composition>        
+</html>
+

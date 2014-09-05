@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"          
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="TIPOS"></h:outputText>
+        </ui:define>
+        <ui:define name="body">      
+            
+        <h:form id="frmT" styleClass="jsfcrud_list_form">
+            <h:panelGrid id="panelT" columns="2">
+                <h:outputLabel value="Codigo"/>
+                    <h:inputText value="#{tipoControlador.tipo.idTipo}"/>
+                <h:outputLabel value="Nombre"/>
+                <h:inputText value="#{tipoControlador.tipo.nombre}"/>
+            </h:panelGrid>
+            
+            <h:panelGroup>
+                <h:commandButton value="Agregar" 
+                                 action="#{tipoControlador.insertar}"/>
+                <h:commandButton value="Modificar" 
+                                 action="#{tipoControlador.modificaTipo}"/>
+                <h:commandButton value="Eliminar" 
+                                 action="#{tipoControlador.eliminaTipo}"/>
+                <h:commandButton value="Volver" 
+                                 action="/indexAdmin.xhtml"/>
+            </h:panelGroup>
+
+            <p:dataTable var="item" value="#{tipoControlador.listaTodos}" paginator ="true" rows="5">
+                <p:column filterBy="#{item.idTipo}">
+                    <f:facet name="header">
+                        <h:outputText value="ID"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idTipo}" />
+                </p:column>
+
+                <p:column filterBy="#{item.nombre}">
+                    <f:facet name="header">
+                        <h:outputText value="DESCRIPCION"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombre}" />
+                </p:column>
+                
+                <p:column>
+                      <p:commandButton update=":frmT:panelT" icon="ui-icon-arrowrefresh-1-w" title="Cargar Encabezado" >                          
+                          <f:setPropertyActionListener value="#{item}" target="#{tipoControlador.tipo}"/>
+                      </p:commandButton>                         
+                </p:column>                    
+            </p:dataTable>
+            
+            <p:messages showDetail="true" autoUpdate="true"/>                
+        </h:form>
+        </ui:define>
+    </ui:composition>     
+</html>

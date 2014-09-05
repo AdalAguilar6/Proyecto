@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+       <h:form>
+            <h:outputLabel value="Mantenimiento de NotaEnvio Detalle"/>
+            <h:panelGrid columns="2">
+            <h:outputLabel value="idNotaenvioDet"/>
+            <h:panelGroup>
+                <h:inputText value="#{notaenviodetalleControlador.notaenviodetalle.idNotaEnvioDet}"/>
+                <h:commandButton value="Buscar NotaEnvio Detalle" action="#{notaenviodetalleControlador.buscarNotaenvioDetalle}"/>
+            </h:panelGroup>
+            <h:outputLabel value="idNotaEnvio"/>
+            <h:inputText value="#{notaenviodetalleControlador.notaenviodetalle.idNotaEnvio}"/>
+            <h:outputLabel value="idFardo"/>
+            <h:inputText value="#{notaenviodetalleControlador.notaenviodetalle.idBobinaFardo}"/>
+            </h:panelGrid>
+            <h:panelGroup>
+            <h:commandButton value="Agregar" 
+                             action="#{notaenviodetalleControlador.insertar}"/>
+            <h:commandButton value="Modificar" 
+                             action="#{notaenviodetalleControlador.modificaNotaenvioDetalle}"/>
+            <h:commandButton value="Eliminar" 
+                             action="#{notaenviodetalleControlador.eliminaNotaenvioDetalle}"/>
+            <h:commandButton value="Detalle" 
+                             action="#{bundle.CreateBodegaIndexLink}"/>
+            <h:commandButton value="Volver" 
+                             action="#{bundle.CreateBodegaIndexLink}"/>
+            </h:panelGroup>
+        </h:form>
+    </h:body>
+</html>
+

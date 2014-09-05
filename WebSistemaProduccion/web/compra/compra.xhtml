@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"          
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="COMPRA"></h:outputText>
+        </ui:define>
+        <ui:define name="body">        
+        
+        <h:form id="form" styleClass="jsfcrud_list_form">
+            <p:growl id="msgs" showDetail="true" />
+           
+            <h:panelGrid id="panel1" columns="2">            
+            <h:outputLabel value="Fecha"/> 
+            <p:calendar value="#{compraControlador.compra.fecha}" style="width: 80px"
+                        pattern="dd/MM/yyyy" 
+                        id="popupButtonCal" showOn="button" />   
+            <h:outputLabel value="Proveedor"/>
+           <h:selectOneMenu value="#{compraControlador.compra.idProveedor}">  
+                            <f:selectItems value="#{compraControlador.listaProveedor}"/>
+           </h:selectOneMenu>
+           
+            </h:panelGrid>
+            <h:panelGroup>
+            <p:commandButton value="Agregar Encabezado" 
+                             action="#{compraControlador.insertar}" update ="tblencabezado" icon="ui-icon-disk"/>
+            <p:commandButton value="Modificar" 
+                             action="#{compraControlador.modificaCompra}" update ="tblencabezado" icon="ui-icon-arrowrefresh-1-w"/>
+            <p:commandButton value="Eliminar" 
+                             action="#{compraControlador.eliminaCompra}" update ="tblencabezado" icon="ui-icon-close"/>
+           
+            <p:commandButton value="Volver" 
+                             action="/indexBodega.xhtml"/>
+            </h:panelGroup>
+            
+            <p:dataTable id="tblencabezado" var="item1" value="#{compraControlador.listaTodos}"  paginator ="true" rows="3">
+                 <p:column headerText="ID COMPRA" style="width: 75px" >                   
+                    <h:outputText value="#{item1.idCompra}" style="width: 75px"/>
+                </p:column>
+                <p:column headerText="FECHA">                                                             
+                    <h:outputText value="#{item1.fecha.toLocaleString()}" />
+                </p:column>
+
+                <p:column headerText="PROVEEDOR">
+                    <h:outputText value="#{item1.idProveedor.nombre}" />
+                </p:column> 
+                  <p:column headerText="Seleccionar">
+                      <p:commandButton update=":form:panel1" icon="ui-icon-arrowrefresh-1-w" title="Compra" >                          
+                      <f:setPropertyActionListener value="#{item1}" target="#{compraControlador.compra}"/>
+                      </p:commandButton>              
+                </p:column> 
+                 <p:column>
+                     <p:commandButton update=":form:tblDetalle" oncomplete="PF('dialog').show()"  
+                                      action="#{compraControlador.cargardetallexidcompra(item1.idCompra)}"  
+                                      icon="ui-icon-arrowrefresh-1-w" value="Ver Detalles" immediate="true" >                                                
+                      </p:commandButton> 
+                 </p:column>      
+            </p:dataTable> 
+            
+            <h:panelGroup>
+                 <p:commandButton  value="Agregar Detalle" update=":form:tblDetalle"  
+                              onclick="PF('detalle').show()"   
+                              image="ui-icon-search"/>             
+            </h:panelGroup>
+                                   
+                      
+             <p:dialog header="Listado Detalle Compra" widgetVar="dialog"   
+                        showEffect="fade" hideEffect="fade" id="dialog" >                        
+                <p:dataTable id="tblDetalle" var="item" value="#{compraControlador.listaDt}" paginator ="true" rows="3" >
+                 <p:column headerText="ID">                   
+                    <h:outputText value="#{item.idCompraDet}" style="width: 100px"/>
+                    </p:column>
+                <p:column headerText="ID COMPRA">                                                             
+                    <h:outputText value="#{item.idCompra}" />
+                </p:column>
+                <p:column headerText="MATERIA PRIMA">
+                    <h:outputText value="#{item.idMateriaPrima.nombre}" />
+                </p:column>     
+                <p:column headerText="CANTIDAD">
+                    <h:outputText value="#{item.cantidad}" />
+                </p:column>                
+            </p:dataTable>                    
+          </p:dialog> 
+            
+            <p:dialog header="Digite datos de Detalle Compra" widgetVar="detalle"   
+                      showEffect="fade" hideEffect="fade" >  
+                <h:panelGrid id="display1" columns="" cellpadding="4">  
+                    <h:outputText value="Correlativo:" />  
+                    <h:panelGroup>
+                         <p:inputText value="#{compraControlador.dt.idCompraDet}"/>
+                         <p:commandButton  update =":form:display1" value="Buscar Detalle" action="#{compraControlador.buscarCompra_deta}"/>
+                    </h:panelGroup>
+                    <h:outputText value="IdCompra: " />                      
+                    <h:selectOneMenu value="#{compraControlador.dt.idCompra}">  
+                        <f:selectItems value="#{compraControlador.listaTodos}"/>
+                    </h:selectOneMenu>
+                     <h:outputText value="Materia Prima: " />  
+                    <h:selectOneMenu id="idMateriaPrima" value="#{compraControlador.dt.idMateriaPrima}">
+                        <f:selectItems value="#{compraControlador.listaMateriaPrima}"/>
+                    </h:selectOneMenu> 
+                   <h:outputText value="Cantidad: " />  
+                    <h:inputText value="#{compraControlador.dt.cantidad}"/>                    
+                    <p:splitButton value="Insertar" actionListener="#{compraControlador.insertar_detalle}" update =":form:display1" icon="ui-icon-disk">
+                        <p:menuitem value="Modificar" actionListener="#{compraControlador.modifica_deta}" update=":form:display1" icon="ui-icon-arrowrefresh-1-w" />
+                        <p:menuitem value="Eliminar" actionListener="#{compraControlador.elimina_deta}" ajax="false" icon="ui-icon-close" />                       
+                    </p:splitButton>
+                </h:panelGrid>  
+            </p:dialog>              
+        </h:form>
+    </ui:define>
+    </ui:composition>        
+</html>

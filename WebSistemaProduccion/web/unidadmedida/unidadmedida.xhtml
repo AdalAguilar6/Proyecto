@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"   
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="UNIDADES DE MEDIDA"></h:outputText>
+        </ui:define>
+        <ui:define name="body">        
+        
+        
+        <h:form id="frmUM" styleClass="jsfcrud_list_form">
+            <h:panelGrid id="panelUM" columns="2">
+                <h:outputLabel value="Nombre"/>
+                <h:inputText value="#{unidadmedidaControlador.unidadmedida.nombre}" style="width: 300px"/>
+                <h:outputLabel value="Abreviatura"/>
+                <h:inputText value="#{unidadmedidaControlador.unidadmedida.abreviatura}"/>
+            </h:panelGrid>
+            
+            <h:panelGroup>               
+                <h:commandButton value="Agregar" action="#{unidadmedidaControlador.insertar}"/>
+                <h:commandButton value="Modificar" action="#{unidadmedidaControlador.modificaUnidad}"/>
+                <h:commandButton value="Eliminar" action="#{unidadmedidaControlador.eliminaUnidad}"/>
+                <h:commandButton value="Volver" action="/indexAdmin.xhtml"/>
+            </h:panelGroup>
+           
+             <p:dataTable var="item" value="#{unidadmedidaControlador.listaTodos}" paginator ="true" rows="5">
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="ID"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idUnidadMedida}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="NOMBRE"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombre}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="ABREVIATURA"/>
+                    </f:facet>
+                    <h:outputText value="#{item.abreviatura}" />
+                </p:column>
+
+                <p:column>
+                      <p:commandButton update=":frmUM:panelUM" icon="ui-icon-arrowrefresh-1-w" title="Cargar Encabezado" >                          
+                          <f:setPropertyActionListener value="#{item}" target="#{unidadmedidaControlador.unidadmedida}"/>
+                      </p:commandButton>                         
+                </p:column>                   
+            </p:dataTable>   
+            
+            <p:messages showDetail="true" autoUpdate="true"/>                
+        </h:form>
+        </ui:define>
+    </ui:composition>   
+</html>
+

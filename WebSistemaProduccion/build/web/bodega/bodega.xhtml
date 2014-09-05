@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"      
+      xmlns:p="http://primefaces.org/ui">
+        
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="BODEGAS"></h:outputText>
+        </ui:define>
+        <ui:define name="body">        
+        
+        
+        <h:form id="frmB" styleClass="jsfcrud_list_form">
+            <h:panelGrid id="panelB" columns="2">
+                <h:outputLabel value="Codigo"/>
+                <h:inputText value="#{bodegaControlador.bodega.codigo}"/>
+                <h:outputLabel value="Nombre"/>
+                <h:inputText value="#{bodegaControlador.bodega.nombre}" style="width: 300px"/>
+            </h:panelGrid>
+            
+            <h:panelGroup>
+                <h:commandButton value="Agregar" 
+                                 action="#{bodegaControlador.insertar}"/>
+                <h:commandButton value="Modificar" 
+                                 action="#{bodegaControlador.modificaBodega}"/>
+                <h:commandButton value="Eliminar" 
+                                 action="#{bodegaControlador.eliminaBodega}"/>
+                <h:commandButton value="Volver" 
+                                 action="/indexAdmin.xhtml"/>
+            </h:panelGroup>         
+            
+            <p:dataTable var="item" value="#{bodegaControlador.listaTodos}">
+                    <f:facet name="header">
+                        Lista de Bodegas
+                    </f:facet>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="ID"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idBodega}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="CODIGO"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codigo}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="NOMBRE"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombre}" />
+                </p:column>
+                
+                <p:column>
+                      <p:commandButton update=":frmB:panelB" icon="ui-icon-arrowrefresh-1-w" title="Cargar Encabezado" >                          
+                      <f:setPropertyActionListener value="#{item}" target="#{bodegaControlador.bodega}"/>
+                      </p:commandButton>                         
+                </p:column>                  
+            </p:dataTable>
+            
+            <p:messages showDetail="true" autoUpdate="true"/>   
+        </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

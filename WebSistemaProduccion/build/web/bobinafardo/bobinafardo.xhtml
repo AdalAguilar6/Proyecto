@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"          
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="BOBINAS/FARDOS"></h:outputText>
+        </ui:define>
+        <ui:define name="body">        
+        
+        <h:form styleClass="jsfcrud_list_form">
+            <h:panelGrid columns="2">
+                <h:outputLabel value="idBobina"/>
+                <h:panelGroup>
+                    <h:inputText value="#{bobinafardoControlador.bobinafardo.idBobinaFardo}"/>
+                    <h:commandButton value="Buscar Bobinas" action="#{bobinafardoControlador.buscarBobinaCodigo}"/>
+                </h:panelGroup>
+                <h:outputLabel value="Codigo"/>
+                <h:inputText value="#{bobinafardoControlador.bobinafardo.codigo}"/>
+                <h:outputLabel value="Peso"/>
+                <h:inputText value="#{bobinafardoControlador.bobinafardo.peso}"/>
+                <h:outputLabel value="Cantidad"/>
+                <h:inputText value="#{bobinafardoControlador.bobinafardo.cantidad}"/>
+                <h:outputLabel value="Hora Inicio"/>
+                <h:inputText value="#{bobinafardoControlador.bobinafardo.horaInicio}"/>
+                <h:outputLabel value="Hora Fin"/>
+                <h:inputText value="#{bobinafardoControlador.bobinafardo.horaFinal}"/>            
+                <h:outputLabel value="Viñeta Entrada"/>
+                <h:inputText value="#{bobinafardoControlador.bobinafardo.idBobinaFardoEntrada}"/>
+                <h:outputLabel value="Peso Entrada"/>
+                <h:inputText value="#{bobinafardoControlador.bobinafardo.pesoEntrada}"/>            
+                <h:outputLabel value="Secuencia"/>
+                <h:inputText value="#{bobinafardoControlador.bobinafardo.secuencial}"/>
+                <h:outputLabel value="idOrden"/>
+                <h:inputText value="#{bobinafardoControlador.bobinafardo.idOrden}"/>
+                <h:outputLabel value="idSupervisor"/>
+                <h:inputText value="#{bobinafardoControlador.bobinafardo.idSupervisor}"/>
+                <h:outputLabel value="idOperario"/>
+                <h:inputText value="#{bobinafardoControlador.bobinafardo.idOperario}"/>            
+                <h:outputLabel value="idBodega"/>
+                <h:inputText value="#{bobinafardoControlador.bobinafardo.idBodega}"/>   
+            </h:panelGrid>
+            
+            <h:panelGroup>
+                <h:commandButton value="Agregar" 
+                                 action="#{bobinafardoControlador.insertar}"/>
+                <h:commandButton value="Modificar" 
+                                 action="#{bobinafardoControlador.modificaBobina}"/>
+                <h:commandButton value="Eliminar" 
+                                 action="#{bobinafardoControlador.eliminaBobina}"/>
+                <h:commandButton value="Volver" 
+                                 action="/index.xhtml"/>
+            </h:panelGroup>
+        </h:form>
+        </ui:define>
+    </ui:composition>        
+</html>
+

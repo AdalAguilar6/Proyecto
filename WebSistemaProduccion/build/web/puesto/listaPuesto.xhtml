@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                     <p:dataTable value="#{puestoControlador.lista}" var="item" paginator ="true" rows="5">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Id Puesto"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idPuesto}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nombre"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre}"/>
+                        </p:column>
+                         <p:column filterBy="#{item.idDepto}">
+                            <f:facet name="header">
+                                <h:outputText value="Departamento"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idDepto}"/>
+                        </p:column>
+                         
+                       <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Accion"/>
+                            </f:facet>
+                           <p:commandButton value="Select">
+                               <f:setPropertyActionListener value="#{item.nombre}" target="#{puestoControlador.selectedPuesto}"/>
+                           </p:commandButton>    
+                        </p:column>
+                    </p:dataTable>
+                    <h:outputLabel value="Nombre"/>
+                    <h:inputText value="#{puestoControlador.selectedPuesto.nombre}"/>
+                
+              </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

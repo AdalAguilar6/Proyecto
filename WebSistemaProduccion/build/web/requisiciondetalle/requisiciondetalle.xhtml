@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+            xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+       <h:form>
+            <h:outputLabel value="Mantenimiento de Requisicion Detalle"/>
+            <h:panelGrid columns="2">
+            <h:outputLabel value="idRequisicionDet"/>
+            <h:panelGroup>
+                <h:inputText value="#{requisiciondetalleControlador.requisiciondetalle.idRequisicionDetalle}"/>
+                <h:commandButton value="Buscar Requisicion Detalle" action="#{requisiciondetalleControlador.buscarRequisicionDetalle}"/>
+            </h:panelGroup>
+            <h:outputLabel value="IdRequisicion"/>
+            <h:inputText value="#{requisiciondetalleControlador.requisiciondetalle.idRequisicion}"/>
+            <h:outputLabel value="MateriaPrima"/>
+                <h:selectOneMenu id="idMateriaPrima" value="#{requisiciondetalleControlador.requisiciondetalle.idMateriaPrima}">
+                <f:selectItems value="#{materiaprimaControlador.listaTodos}"/>
+                </h:selectOneMenu>
+            <h:outputLabel value="Cantidad"/>
+            <h:inputText value="#{requisiciondetalleControlador.requisiciondetalle.cantidad}"/>
+            </h:panelGrid>
+            <h:panelGroup>
+            <h:commandButton value="Agregar" 
+                             action="#{requisiciondetalleControlador.insertar}"/>
+            <h:commandButton value="Modificar" 
+                             action="#{requisiciondetalleControlador.modificaRequisicionDetalle}"/>
+            <h:commandButton value="Eliminar" 
+                             action="#{requisiciondetalleControlador.eliminaRequisicionDetalle}"/>
+            <h:commandButton value="Volver" 
+                             action="/index.xhtml"/>           
+            </h:panelGroup>
+        </h:form>
+    </h:body>
+</html>
+

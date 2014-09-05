@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"          
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="COMPRAS"></h:outputText>
+        </ui:define>
+        
+        <ui:define name="body">        
+            <h:form id="frm" styleClass="jsfcrud_list_form">       
+                <h:panelGrid id="pgrid" columns="2">
+                    <h:outputLabel id="idCd" value="idCompraDet"/>
+                    <h:panelGroup id="pgruop">
+                        <h:inputText id="idCompraDet" value="#{compradetalleControlador.compraDetalle.idCompraDet}"/>
+                        <h:commandButton value="Buscar Compra Detalle" action="#{compradetalleControlador.buscarCompraDetalle}"/>
+                    </h:panelGroup>
+                    
+                    <h:outputLabel id="cant" value="Cantidad"/>
+                    <h:inputText id="cantidad" value="#{compradetalleControlador.compraDetalle.cantidad}"/>
+                    
+                    <h:outputLabel id="idMp" value="MateriaPrima"/>
+                    <p:selectOneMenu id="idMateriaPrima" value="#{compradetalleControlador.compraDetalle.idMateriaPrima}">
+                            <f:selectItems id="idList" value="#{materiaprimaControlador.listaTodos}"/>
+                    </p:selectOneMenu>
+                    
+                    <h:outputLabel id="idC" value="IdCompra"/>
+                    <h:selectOneMenu id="IdCompra" value="#{compradetalleControlador.compraDetalle.idCompra}">
+                        <f:selectItem id="idCc" itemValue="#{compraControlador.compra.idCompra}"/>
+                    </h:selectOneMenu>
+                    
+                </h:panelGrid>
+            
+                <h:panelGroup>
+                    <h:commandButton id="Agegar" value="Agregar"
+                                     action="#{compradetalleControlador.insertar}"/>
+                    <h:commandButton id="Modif" value="Modificar" 
+                                     action="#{compradetalleControlador.modificaCompraDetalle}"/>
+                    <h:commandButton id="Elim" value="Eliminar" 
+                                     action="#{compradetalleControlador.eliminaCompraDetalle}"/>
+                    <h:commandButton id="Volver" value="Volver" 
+                                     action="/compra/compra.xhtml"/>
+                </h:panelGroup>
+            </h:form>
+        </ui:define>
+    </ui:composition>       
+</html>
+

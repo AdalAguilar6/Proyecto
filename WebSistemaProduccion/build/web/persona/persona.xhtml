@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"          
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="PERSONAS"></h:outputText>
+        </ui:define>
+        <ui:define name="body">        
+        
+        <h:form id="frmPE" styleClass="jsfcrud_list_form">
+            <h:panelGrid id="panelPE" columns="2">
+                <h:outputLabel value="Nombre"/>
+                <h:inputText value="#{personaControlador.persona.nombre}" style="width: 300px"/>
+                <h:outputLabel value="Direccion"/>
+                <h:inputText value="#{personaControlador.persona.direccion}" style="width: 300px"/>
+                <h:outputLabel value="Telefono"/>
+                <h:inputText value="#{personaControlador.persona.telefono}" style="width: 100px"/>            
+                <h:outputLabel value="NRC"/>
+                <h:inputText value="#{personaControlador.persona.nrc}" style="width: 100px"/>
+                <h:outputLabel value="Registro Fiscal"/>
+                <h:inputText value="#{personaControlador.persona.registroFiscal}" style="width: 100px"/>
+                
+                <h:outputText value="Tipo Persona" />  
+                <p:selectOneMenu id="idTipoPersona" value="#{personaControlador.persona.idTipoPersona}">
+                    <f:selectItems value="#{personaControlador.listaTipoPersona}"/>
+                </p:selectOneMenu>    
+                
+                
+                <h:outputText value="Tipo Pago" />  
+                <p:selectOneMenu id="idTipoPago" value="#{personaControlador.persona.idTipoPago}">
+                    <f:selectItems value="#{personaControlador.listaTipoPago}"/>
+                </p:selectOneMenu>    
+                
+                <h:outputLabel value="Proveedor"/>
+                <p:selectBooleanCheckbox 
+                    value="#{personaControlador.checkProveedor}">
+                </p:selectBooleanCheckbox>     
+                
+                <h:outputLabel value="Cliente"/>
+                <p:selectBooleanCheckbox 
+                    value="#{personaControlador.checkCliente}">
+                </p:selectBooleanCheckbox>   
+            </h:panelGrid>
+                
+            <h:panelGroup>
+                <h:commandButton value="Agregar" 
+                                 action="#{personaControlador.insertar}"/>
+                <h:commandButton value="Modificar" 
+                                 action="#{personaControlador.modificaPersona}"/>
+                <h:commandButton value="Eliminar" 
+                                 action="#{personaControlador.eliminaPersona}"/>
+                <h:commandButton value="Volver" 
+                                 action="/indexAdmin.xhtml"/>
+            </h:panelGroup>
+
+            <p:dataTable var="item" value="#{personaControlador.listaTodos}" paginator ="true" rows="10">
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="ID"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idPersona}" style="width: 100px"/>
+                </p:column>
+
+                <p:column filterBy="#{item.nombre}">
+                    <f:facet name="header">
+                        <h:outputText value="NOMBRES"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombre}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="DIRECCION"/>
+                    </f:facet>
+                    <h:outputText value="#{item.direccion}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="NRC"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nrc}" />
+                </p:column>                
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="TELEFONO"/>
+                    </f:facet>
+                    <h:outputText value="#{item.telefono}" />
+                </p:column>                                    
+                
+                <p:column filterBy="#{item.idTipoPago.nombre}">
+                    <f:facet name="header">
+                        <h:outputText value="TIPO PAGO"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idTipoPago.nombre}" />
+                </p:column>                
+
+                <p:column filterBy="#{item.idTipoPersona.nombre}">
+                    <f:facet name="header">
+                        <h:outputText value="TIPO PERSONA"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idTipoPersona.nombre}" />
+                </p:column>                    
+                
+                <p:column filterBy="#{item.proveedor}">
+                    <f:facet name="header">
+                        <h:outputText value="PROVEEDOR"/>
+                    </f:facet>
+                    <h:outputText value="#{item.proveedor}" />
+                </p:column>                                                 
+                
+                <p:column filterBy="#{item.cliente}">
+                    <f:facet name="header">
+                        <h:outputText value="CLIENTE"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cliente}" />
+                </p:column>                   
+                
+                <p:column>
+                      <p:commandButton update=":frmPE:panelPE" icon="ui-icon-arrowrefresh-1-w" title="Cargar Encabezado" >                          
+                          <f:setPropertyActionListener value="#{item}" target="#{personaControlador.persona}"/>
+                      </p:commandButton>                         
+                </p:column>                   
+            </p:dataTable>
+            
+            <p:messages showDetail="true" autoUpdate="true"/>                
+        </h:form>
+        </ui:define>
+    </ui:composition>     
+</html>
+

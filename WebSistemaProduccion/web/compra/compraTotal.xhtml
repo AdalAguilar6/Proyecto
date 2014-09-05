@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"      
+      xmlns:f="http://java.sun.com/jsf/core">
+    
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="COMPRAS"></h:outputText>
+        </ui:define>
+        <ui:define name="body">    
+            
+            <h:form id="frmComp" styleClass="jsfcrud_list_form">
+                <h:panelGrid id="gridEncabezado" columns="2">
+                    <h:outputLabel value="Fecha:"/>    
+                    <p:calendar value="#{compraControlador.compra.fecha}" style="width: 80px"
+                        pattern="dd/MM/yyyy" 
+                        id="popupButtonCal" showOn="button" />                    
+                    <h:outputLabel value="Proveedor:"/>   
+                    <h:selectOneMenu value="#{compraControlador.compra.idProveedor}">  
+                            <f:selectItems value="#{compraControlador.listaProveedor}"/>
+                    </h:selectOneMenu>
+
+                    <p:commandButton value="Agregar línea" update="tblDetalle"  
+                                     onclick="PF('dialog').show();"/>                    
+                </h:panelGrid>
+
+
+                <p:dataTable id="tblDetalle" value="#{compraControlador.listaDetalle}" var="item">
+                    <p:column headerText="Cantidad">  
+                        <h:outputText value="#{item.cantidad}" />  
+                    </p:column>
+                    <p:column headerText="Materia Prima">  
+                        <h:outputText value="#{item.idMateriaPrima.nombre}" />  
+                    </p:column>
+                </p:dataTable>
+                
+                
+                <p:commandButton value="Guardar Compra" 
+                                 action="#{compraControlador.guardarMovimiento}"/>              
+                <p:commandButton value="Lista Compras" 
+                             action="/compra/listaCompras.xhtml"/>
+                <p:commandButton value="Imprimir" 
+                             action="/index.xhtml"/>
+                <p:commandButton value="Volver" 
+                             action="/index.xhtml"/>
+                
+            <p:messages showDetail="true" autoUpdate="true"/>
+            
+            <p:dialog header="Digite detalle de Compra" widgetVar="dialog"   
+                      showEffect="fade" hideEffect="fade">  
+                <h:panelGrid id="display" columns="2" cellpadding="5">  
+                    <h:outputText value="Cantidad: " />  
+                    <h:inputText value="#{compraControlador.dt.cantidad}"/>  
+
+                    <h:outputText value="Materia Prima: " />  
+                    <h:selectOneMenu id="idMateriaPrima" value="#{compraControlador.dt.idMateriaPrima}">
+                        <f:selectItems value="#{compraControlador.listaMateriaPrima}"/>
+                    </h:selectOneMenu> 
+                    
+                    <p:commandButton value="Guardar" action="#{compraControlador.guardarDetalle}" 
+                                     update ="tblDetalle"/>
+                </h:panelGrid>  
+            </p:dialog>
+        </h:form>
+        </ui:define>
+    </ui:composition>       
+</html>
+

@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"          
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="PEDIDOS PENDIENTES EXTRUSION"></h:outputText>
+        </ui:define>
+        <ui:define name="body">        
+                
+            <h:form id="frmlpEX" styleClass="jsfcrud_list_form">
+            <p:dataTable var="item" value="#{pedidoControlador.listaPedidoEx}" paginator ="true" rows="10">
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="ID"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idPedido}" style="width: 100px"/>
+                </p:column>
+
+                <p:column filterBy="#{item.fecha}">
+                    <f:facet name="header">
+                        <h:outputText value="FECHA"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fecha.toLocaleString()}" />
+                </p:column>                
+                
+                <p:column filterBy="#{item.fechaEntrega}">
+                    <f:facet name="header">
+                        <h:outputText value="FECHA ENTREGA"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaEntrega.toLocaleString()}" />
+                </p:column>                
+                
+                <p:column filterBy="#{item.idCliente.nombre}">
+                    <f:facet name="header">
+                        <h:outputText value="CLIENTE"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idCliente.nombre}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="ANCHO"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ancho}" />
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="LARGO"/>
+                    </f:facet>
+                    <h:outputText value="#{item.largo}" />
+                </p:column>                
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="CALIBRE"/>
+                    </f:facet>
+                    <h:outputText value="#{item.calibre}" />
+                </p:column>                    
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="PRODUCTO"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idProducto.nombre}" />
+                </p:column>                    
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="CANTIDAD"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cantidad}" />
+                </p:column>  
+
+                <p:column>
+                    <p:commandButton update=":frmlpEX:Detail"  value="Orden" onclick="PF('dialogor').show();"
+                          action="#{ordenproduccionControlador.filtrarPedidoEx(item.idPedido)}" >            
+                    </p:commandButton>                                                      
+                </p:column>              
+                
+            </p:dataTable>          
+
+            <h:panelGroup>
+                <h:commandButton value="Volver" 
+                                 action="/indexJefeProd.xhtml"/>           
+            </h:panelGroup>
+
+            <p:dialog id="idDialogo" header="Crear orden de Extrusion" widgetVar="dialogor"   
+                          showEffect="fade" hideEffect="fade">
+                <p:outputPanel id="Detail" style="text-align:left;">
+                <h:panelGrid columns="2">
+                <h:outputLabel value="Pedido" style="width: 100px"/>
+                <h:inputText value="#{ordenproduccionControlador.ordenproduccion.idPedido}" style="width: 100px" readonly="true"/>
+                <h:outputLabel value="Proceso" style="width: 100px"/>
+                <h:inputText value="#{ordenproduccionControlador.ordenproduccion.proceso}" style="width: 100px" readonly="true"/>
+                <h:outputLabel value="Correlativo" style="width: 100px"/>          
+                <h:inputText value="#{ordenproduccionControlador.ordenproduccion.correlativo}" style="width: 100px" readonly="true"/>            
+                
+                <h:outputLabel value="Fecha" style="width: 100px"/>
+                <h:inputText value="#{ordenproduccionControlador.ordenproduccion.fecha}" style="width: 100px">
+                      <f:convertDateTime pattern="dd/MM/yyyy" />
+                </h:inputText>           
+                <h:outputLabel value="Observacion" style="width: 100px"/>
+                <h:inputText value="#{ordenproduccionControlador.ordenproduccion.observacion}"/>
+                <h:outputLabel value="Ancho" style="width: 100px"/>          
+                <h:inputText value="#{ordenproduccionControlador.ordenproduccion.ancho}" style="width: 100px"/>
+                <h:outputLabel value="Largo" style="width: 100px"/>
+                <h:inputText value="#{ordenproduccionControlador.ordenproduccion.largo}" style="width: 100px"/>   
+                <h:outputLabel value="Calibre" style="width: 100px"/>
+                <h:inputText value="#{ordenproduccionControlador.ordenproduccion.calibre}" style="width: 100px"/>               
+                 <h:outputLabel value="Turno" style="width: 100px"/>          
+                <h:selectOneMenu id="IdTurno" value="#{ordenproduccionControlador.ordenproduccion.idTurno}" >
+                    <f:selectItems value="#{ordenproduccionControlador.listaTurnos}"/>
+                </h:selectOneMenu>     
+                 
+                <h:outputLabel value="Maquina" style="width: 100px"/>
+                <h:selectOneMenu id="idMaquina" value="#{ordenproduccionControlador.ordenproduccion.idMaquina}" >
+                    <f:selectItems value="#{maquinaControlador.listaMaqActivasEX}"/>
+                </h:selectOneMenu>    
+                
+                <h:panelGroup>
+                    <h:commandButton value="Agregar" 
+                        action="#{ordenproduccionControlador.insertar}"/>
+                </h:panelGroup>                
+                </h:panelGrid>
+                </p:outputPanel>
+            </p:dialog>            
+            <p:messages showDetail="true" autoUpdate="true"/>               
+        </h:form>
+        </ui:define>
+    </ui:composition>   
+</html>
+

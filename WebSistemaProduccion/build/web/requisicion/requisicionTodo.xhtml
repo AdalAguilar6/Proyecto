@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"      
+      xmlns:f="http://java.sun.com/jsf/core">
+    
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="REQUISICIONES DE MATERIA PRIMA"></h:outputText>
+        </ui:define>
+        <ui:define name="body">    
+            
+            <h:form id="frmReq" styleClass="jsfcrud_list_form">
+                <h:panelGrid id="gridEnc" columns="2">
+                    <h:outputLabel value="Fecha"/>           
+                    <h:inputText value="#{requisicionControlador.requisicion.fecha}" style="width: 75px">
+                          <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:inputText>          
+                    
+                    <h:outputLabel value="No. Orden"/>   
+                    <h:inputText value="#{requisicionControlador.requisicion.idOrden}"/> 
+          
+                    <p:commandButton value="Agregar línea" update="tblDet"  
+                                     onclick="PF('dialogor').show();"/>                       
+                </h:panelGrid>
+
+                <p:dataTable id="tblDet" value="#{requisicionControlador.listaDetalle}" var="item" >
+                    <p:column headerText="Cantidad">  
+                        <h:outputText value="#{item.cantidad}" />  
+                    </p:column>
+                    <p:column headerText="Materia Prima">  
+                        <h:outputText value="#{item.idMateriaPrima.nombre}" />  
+                    </p:column>
+                </p:dataTable>
+                                
+                <p:commandButton value="Guardar Requisicion" 
+                                 action="#{requisicionControlador.guardarMovimiento}"/>              
+                <p:commandButton value="Lista Requisiciones" 
+                             action="/requisicion/listaRequisiciones.xhtml"/>
+                <p:commandButton value="Imprimir" 
+                             action="/index.xhtml"/>
+                <p:commandButton value="Volver" 
+                             action="/index.xhtml"/>
+                <p:commandButton value="Borrar Detalle" action="#{requisicionControlador.borrarDetalle}" 
+                              update ="tblDet"/>  
+                
+                <p:messages showDetail="true" autoUpdate="true"/>                
+                
+                <p:dialog id="idDialogo" header="Detalle de Requisicion" widgetVar="dialogor"   
+                          showEffect="fade" hideEffect="fade">
+                    <h:panelGrid id="display" columns="2" cellpadding="5">                     
+                    <h:outputText value="Cantidad: " />  
+                    <h:inputText value="#{requisicionControlador.dt.cantidad}"/>  
+
+                    <h:outputText value="Materia Prima: " />  
+                    <h:selectOneMenu id="idMateriaPrima" value="#{requisicionControlador.dt.idMateriaPrima}">
+                        <f:selectItems value="#{requisicionControlador.listaMateriaPrima}"/>
+                    </h:selectOneMenu> 
+
+                    <p:commandButton value="Guardar" action="#{requisicionControlador.guardarDetalle}" 
+                                         update ="tblDet"/>                    
+                    </h:panelGrid>  
+                </p:dialog>
+                                      
+        </h:form>
+        </ui:define>
+    </ui:composition>    
+</html>
+

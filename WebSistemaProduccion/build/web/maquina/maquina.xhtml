@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"          
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="MAQUINAS"></h:outputText>
+        </ui:define>
+        <ui:define name="body">        
+        
+        
+        <h:form id="frmM" styleClass="jsfcrud_list_form">
+            <h:panelGrid id="panelM" columns="2">
+                <h:outputLabel value="Codigo"/>
+                <h:inputText value="#{maquinaControlador.maquina.codigo}"/>
+
+                <h:outputLabel value="Estado"/>
+                <h:selectOneMenu id="idEstado" value="#{maquinaControlador.maquina.idEstado}" >
+                    <f:selectItems value="#{maquinaControlador.lista}"/>
+                </h:selectOneMenu>
+
+                <h:outputLabel value="Tipo"/>
+                <h:selectOneMenu id="idTipoMaq" value="#{maquinaControlador.maquina.idTipoMaq}" >
+                    <f:selectItems value="#{maquinaControlador.listaTipoMaquinas}"/>
+                </h:selectOneMenu>
+            </h:panelGrid>
+            
+            <h:panelGroup>
+                <h:commandButton value="Agregar" 
+                                 action="#{maquinaControlador.insertar}"/>
+                <h:commandButton value="Modificar" 
+                                 action="#{maquinaControlador.modificaMaquina}"/>
+                <h:commandButton value="Eliminar" 
+                                 action="#{maquinaControlador.eliminaMaquina}"/>
+                <h:commandButton value="Volver" 
+                                 action="/indexAdmin.xhtml"/>
+            </h:panelGroup>
+            
+            <p:dataTable var="item" value="#{maquinaControlador.listaTodos}" paginator ="true" rows="5">
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="ID"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idMaquina}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="CODIGO"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codigo}" />
+                </p:column>
+
+                <p:column filterBy="#{item.idEstado.nombre}">
+                    <f:facet name="header">
+                        <h:outputText value="ESTADO"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idEstado.nombre}" />
+                </p:column>
+                
+                <p:column filterBy="#{item.idTipoMaq.nombre}">
+                    <f:facet name="header">
+                        <h:outputText value="TIPO MAQUINA"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idTipoMaq.nombre}" />
+                </p:column>                
+
+                <p:column>
+                      <p:commandButton update=":frmM:panelM" icon="ui-icon-arrowrefresh-1-w" title="Cargar Encabezado" >                          
+                          <f:setPropertyActionListener value="#{item}" target="#{maquinaControlador.maquina}"/>
+                      </p:commandButton>                         
+                </p:column>                  
+            </p:dataTable>      
+            
+            <p:messages showDetail="true" autoUpdate="true"/>               
+        </h:form>
+        </ui:define>
+    </ui:composition>        
+</html>
+

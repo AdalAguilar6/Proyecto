@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"      
+      xmlns:p="http://primefaces.org/ui">
+        
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="SISTEMA DE PRODUCCION- Jefe Produccion"></h:outputText>
+        </ui:define>
+        <ui:define name="body">        
+        
+        
+        <h:form id="frmenu" styleClass="jsfcrud_list_form">
+             <p:menubar>
+                 
+         <p:submenu label="Procesos" icon="ui-icon-document">
+            <p:submenu label="Pedidos" icon="ui-icon-contact">
+                  <p:menuitem value="Aprobar Pedidos" url="http://localhost:8080/WebSistemaProduccion/faces/pedido/aprobarPedidos.xhtml" />                  
+                  <p:menuitem value="Listado Pedidos" url="http://localhost:8080/WebSistemaProduccion/faces/pedido/listapedidosJP.xhtml" />                                                      
+            </p:submenu>            
+            <p:submenu label="Programacion Ordenes" icon="ui-icon-contact">
+                  <p:menuitem value="Extrusion" url="http://localhost:8080/WebSistemaProduccion/faces/pedido/listaPedidosEx.xhtml" />
+                  <p:menuitem value="Flexografia" url="http://localhost:8080/WebSistemaProduccion/faces/pedido/listaPedidosFl.xhtml" />    
+                  <p:menuitem value="Doblado" url="http://localhost:8080/WebSistemaProduccion/faces/pedido/listaPedidosDb.xhtml" />                  
+                  <p:menuitem value="Refilado" url="http://localhost:8080/WebSistemaProduccion/faces/pedido/listaPedidosRe.xhtml" />                                    
+                  <p:menuitem value="Corte y Sello" url="http://localhost:8080/WebSistemaProduccion/faces/pedido/listaPedidosCs.xhtml" />                  
+             </p:submenu>
+        </p:submenu>
+                 
+        <p:submenu label="Mantenimientos" icon="ui-icon-pencil">
+             <p:submenu label="Requisiones" icon="ui-icon-contact">
+                  <p:menuitem value="Requision" url="http://localhost:8080/WebSistemaProduccion/faces/requisicion/requisicion.xhtml" />
+                 <p:menuitem value="Listado de Requisiones" url="http://localhost:8080/WebSistemaProduccion/faces/requisicion/listaRequisicionesJP.xhtml" />   
+             </p:submenu>
+        </p:submenu>
+                 
+         <p:submenu label="Reportes" icon="ui-icon-newwin">
+                                      
+        </p:submenu>
+
+         <p:menuitem value="Salir" url="http://localhost:8080/WebSistemaProduccion/faces/index.xhtml" icon="ui-icon-close" />
+                  
+       </p:menubar>
+       </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

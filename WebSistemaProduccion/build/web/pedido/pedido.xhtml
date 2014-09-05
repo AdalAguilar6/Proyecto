@@ -1,0 +1,248 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"          
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="PEDIDOS"></h:outputText>
+        </ui:define>
+        <ui:define name="body">        
+        
+        
+            <h:form id="frmPed" styleClass="jsfcrud_list_form">
+                <h:panelGrid id="panelPed" columns="4">
+                <h:outputLabel value="IdPedido"/>
+                <h:panelGroup>
+                    <h:inputText value="#{pedidoControlador.pedido.idPedido}"/>
+                    <h:commandButton value="Buscar Pedido" action="#{pedidoControlador.buscarPedidoxId}"/>
+                </h:panelGroup>
+                <h:outputLabel value="Cliente"/>
+                <h:selectOneMenu id="idCliente" value="#{pedidoControlador.pedido.idCliente}">
+                    <f:selectItems value="#{pedidoControlador.listaCliente}"/>
+                </h:selectOneMenu>                 
+                <h:outputLabel value="Vendedor"/>
+                <h:selectOneMenu id="idVendedor" value="#{pedidoControlador.pedido.idVendedor}">
+                    <f:selectItems value="#{empleadoControlador.listaEmpleados}"/>
+                </h:selectOneMenu>  
+                <h:outputLabel value="Fecha"/>
+                <h:inputText value="#{pedidoControlador.pedido.fecha}">
+                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                 </h:inputText>   
+                    
+                <h:outputLabel value="FechaEntrega"/>
+                <h:inputText value="#{pedidoControlador.pedido.fechaEntrega}">
+                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                 </h:inputText>   
+                    
+                    
+                <h:outputLabel value="Direccion"/>
+                <h:inputText value="#{pedidoControlador.pedido.direcEntrega}"/>
+                <h:outputLabel value="Observacion"/>
+                <h:inputText value="#{pedidoControlador.pedido.observacion}"/>                
+                <h:outputLabel value="Aprobado"/>
+                <p:selectBooleanCheckbox
+                    value="#{pedidoControlador.checkAprobado}">
+                </p:selectBooleanCheckbox> 
+                <h:outputLabel value="Estado"/>
+                <h:inputText value="#{pedidoControlador.pedido.estado}" readonly="true"/>
+                <h:outputLabel value="Etapa"/>
+                <h:inputText value="#{pedidoControlador.pedido.etapa}" readonly="true"/>
+                <h:outputLabel value="Producto"/>
+                <h:selectOneMenu id="idProducto" value="#{pedidoControlador.pedido.idProducto}">
+                    <f:selectItems value="#{productoControlador.listaTodos}"/>
+                </h:selectOneMenu>                
+                <h:outputLabel value="Cantidad"/>
+                <h:inputText value="#{pedidoControlador.pedido.cantidad}"/>
+                <h:outputLabel value="Unidad de Medida"/>
+                <h:selectOneMenu id="idUniadMedida" value="#{pedidoControlador.pedido.idUniadMedida}">
+                    <f:selectItems value="#{unidadmedidaControlador.listaTodos}"/>
+                </h:selectOneMenu>   
+                
+                <h:outputLabel value="Ancho"/>
+                <h:inputText value="#{pedidoControlador.pedido.ancho}"/>
+                <h:outputLabel value="Largo"/>
+                <h:inputText value="#{pedidoControlador.pedido.largo}"/>
+                <h:outputLabel value="Calibre"/>
+                <h:inputText value="#{pedidoControlador.pedido.calibre}"/>
+
+                <h:outputLabel value="Refilado"/>
+                <p:selectBooleanCheckbox 
+                    value="#{pedidoControlador.checkRefilado}">
+                </p:selectBooleanCheckbox>                                 
+                <h:outputLabel value="Doblado"/>
+                <p:selectBooleanCheckbox 
+                    value="#{pedidoControlador.checkDoblado}">
+                </p:selectBooleanCheckbox>                 
+                <h:outputLabel value="Impresa"/>
+                <p:selectBooleanCheckbox 
+                    value="#{pedidoControlador.checkImpresa}">
+                </p:selectBooleanCheckbox>                 
+                <h:outputLabel value="TextoImpreso"/>
+                <h:inputText value="#{pedidoControlador.pedido.textoImpreso}"/>
+                <h:outputLabel value="ImpresionUnaCara"/>
+                <p:selectBooleanCheckbox 
+                    value="#{pedidoControlador.checkImpUnaCara}">
+                </p:selectBooleanCheckbox>  
+                <h:outputLabel value="ImpresionDosCaras"/>
+                <p:selectBooleanCheckbox 
+                    value="#{pedidoControlador.checkImpDosCaras}">
+                </p:selectBooleanCheckbox>  
+                <h:outputLabel value="ImpresionFrente"/>
+                <p:selectBooleanCheckbox 
+                    value="#{pedidoControlador.checkImpFrente}">
+                </p:selectBooleanCheckbox>  
+                <h:outputLabel value="ImpresionDorso"/>
+                <p:selectBooleanCheckbox 
+                    value="#{pedidoControlador.checkImpDorso}">
+                </p:selectBooleanCheckbox>  
+                <h:outputLabel value="ImpresionContinua"/>
+                <p:selectBooleanCheckbox 
+                    value="#{pedidoControlador.checkImpContinua}">
+                </p:selectBooleanCheckbox>  
+                <h:outputLabel value="Resistencia"/>
+                <h:inputText value="#{pedidoControlador.pedido.resistencia}"/>
+                <h:outputLabel value="Pigmento"/>
+                <h:inputText value="#{pedidoControlador.pedido.pigmento}"/>
+                
+                <h:outputLabel value="PrecioUnitario"/>
+                <h:inputText value="#{pedidoControlador.pedido.precioUnitario}"/>
+
+                <h:outputLabel value="Sello"/>
+                <h:selectOneMenu id="IdSello" value="#{pedidoControlador.pedido.idSello}" >
+                    <f:selectItems value="#{pedidoControlador.listaTipoSello}"/>
+                </h:selectOneMenu>                
+                
+                <h:outputLabel value="TipoTinta"/>
+                <h:inputText value="#{pedidoControlador.pedido.tipoTinta}"/>               
+                
+                <h:outputLabel value="Adicional"/>
+                <h:selectOneMenu id="IdAdicional" value="#{pedidoControlador.pedido.idAdicional}" >
+                    <f:selectItems value="#{pedidoControlador.listaTipoAdicional}"/>
+                </h:selectOneMenu>
+                
+                <h:outputLabel value="TamanoAdicional"/>
+                <h:inputText value="#{pedidoControlador.pedido.tamanoAdicional}"/>
+                
+                <h:outputLabel value="Fuelle1"/>
+                <h:selectOneMenu id="IdFuelle1" value="#{pedidoControlador.pedido.idFuelle1}" >
+                    <f:selectItems value="#{pedidoControlador.listaTipoFuelles}"/>
+                </h:selectOneMenu>               
+                
+                <h:outputLabel value="TamañoFuelle1"/>
+                <h:inputText value="#{pedidoControlador.pedido.tamanoFuelle1}"/>
+                
+                <h:outputLabel value="Fuelle2"/>
+                <h:selectOneMenu id="IdFuelle2" value="#{pedidoControlador.pedido.idFuelle2}" >
+                    <f:selectItems value="#{pedidoControlador.listaTipoFuelles}"/>
+                </h:selectOneMenu>
+                
+                <h:outputLabel value="TamanoFuelle2"/>
+                <h:inputText value="#{pedidoControlador.pedido.tamanoFuelle2}"/>
+                               
+                <h:outputLabel value="Troquelado"/>
+                <h:selectOneMenu id="IdTroquelado" value="#{pedidoControlador.pedido.idTroquelado}" >
+                    <f:selectItems value="#{pedidoControlador.listaTroquelados}"/>
+                </h:selectOneMenu>                
+                
+                <h:outputLabel value="LibrasTotales"/>              
+                <h:panelGroup>
+                    <h:inputText value="#{pedidoControlador.pedido.librasTotales}" readonly="true"/>
+                    <h:commandButton value="Calcular" action="#{pedidoControlador.totalLibras}"/>
+                </h:panelGroup>                
+                
+            </h:panelGrid>
+            
+            <h:panelGroup>
+                <h:commandButton value="Agregar" 
+                                 action="#{pedidoControlador.insertar}"/>
+                <h:commandButton value="Modificar" 
+                                 action="#{pedidoControlador.modificaPedido}"/>
+                <h:commandButton value="Eliminar" 
+                                 action="#{pedidoControlador.eliminaPedido}"/>
+                <h:commandButton value="Volver" 
+                                 action="/indexVendedor.xhtml"/>            
+            </h:panelGroup>
+            
+                <p:dataTable id="pedPe" var="item" value="#{pedidoControlador.listaTodos}" paginator ="true" rows="5">
+                    <f:facet name="header">
+                        Pedidos Registrados
+                    </f:facet>                    
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="ID"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idPedido}" style="width: 100px"/>
+                </p:column>
+
+                <p:column filterBy="#{item.fecha}">
+                    <f:facet name="header">
+                        <h:outputText value="FECHA"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fecha.toLocaleString()}" />
+                </p:column>                
+                
+                <p:column filterBy="#{item.fechaEntrega}">
+                    <f:facet name="header">
+                        <h:outputText value="FECHA ENTREGA"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaEntrega.toLocaleString()}" />
+                </p:column>                
+                
+                <p:column filterBy="#{item.idCliente.nombre}">
+                    <f:facet name="header">
+                        <h:outputText value="CLIENTE"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idCliente.nombre}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="ANCHO"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ancho}" />
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="LARGO"/>
+                    </f:facet>
+                    <h:outputText value="#{item.largo}" />
+                </p:column>                
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="CALIBRE"/>
+                    </f:facet>
+                    <h:outputText value="#{item.calibre}" />
+                </p:column>                    
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="PRODUCTO"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idProducto.nombre}" />
+                </p:column>                    
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="CANTIDAD"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cantidad}" />
+                </p:column>  
+
+                <p:column>
+                      <p:commandButton update=":frmPed:panelPed" icon="ui-icon-arrowrefresh-1-w" title="Cargar Encabezado" >                          
+                      <f:setPropertyActionListener value="#{item}" target="#{pedidoControlador.pedido}"/>
+                      </p:commandButton>                         
+                </p:column>                        
+            </p:dataTable>                
+            
+            <p:messages showDetail="true" autoUpdate="true"/>               
+        </h:form>
+        </ui:define>
+    </ui:composition>   
+</html>
